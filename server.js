@@ -26,7 +26,7 @@ io.sockets.on('connection',
     // We are given a websocket object in our function
     function (socket) {
 
-        console.log("We have a new client: " + socket.id);
+        console.log("We have a new client: " + socket);
 
         // When this user emits, client side: socket.emit('otherevent',some data);
         socket.on('mouse',
