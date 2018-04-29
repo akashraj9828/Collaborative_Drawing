@@ -7,9 +7,19 @@
     <script src="addons/p5.dom.min.js"></script>
     <script src="addons/p5.sound.min.js"></script>
     <script src="sketch.js"></script>
+    <!-- <script src="sketch_overlay.js"></script> -->
 
   <style> body {padding: 0; margin: 0;} </style>
   </head>
   <body>
+    <label for="name" style=" margin:20px">Name:</label>
+    <input type="text" id="name" onchange="ChangeValue()" style="width: 100px; margin:20px">
+
+    <label for="col" style=" margin:20px"style="width: 50px; margin:20px">Color:</label>
+    <input type="color" id="col" onchange="ChangeValue()" value="#eeeeee" style="width: 50px; margin:20px">
+    <br>
+    <div id="container" ></div>
+    <!-- <input type="number" id="g" style="width: 50px; margin:20px">
+    <input type="number" id="b" style="width: 50px; margin:20px"> -->
   </body>
 </html>

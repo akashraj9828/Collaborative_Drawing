@@ -1,3 +1,9 @@
+// Based off of Shawn Van Every's Live Web
+// http://itp.nyu.edu/~sve204/liveweb_fall2013/week3.html
+
+
+var counter=0;
+// Using express: http://expressjs.com/
 var express = require('express');
 // Create the app
 var app = express();
@@ -25,25 +31,41 @@ var io = require('socket.io')(server);
 io.sockets.on('connection',
     // We are given a websocket object in our function
     function (socket) {
-
-        console.log("We have a new client: " + socket);
+            // counter++;
+            // socket.id=counter;
+        console.log("We have a new client: " + socket.id);
 
         // When this user emits, client side: socket.emit('otherevent',some data);
         socket.on('mouse',
             function (data) {
                 // Data comes in as whatever was sent, including objects
-                console.log("Received: 'mouse' " + data.x + " " + data.y);
+                console.log("Received:  (" + data.x + " , " + data.y + ")    Color:"+data.col);
 
                 // Send it to all other clients
                 socket.broadcast.emit('mouse', data);
+                // io.sockets.emit('mouse', data);
 
                 // This is a way to send to everyone including sender
                 // io.sockets.emit('message', "this goes to everyone");
 
             }
         );
+        // socket.on('mouse_live',
+        //     function (data) {
+        //         // Data comes in as whatever was sent, including objects
+        //         // console.log("Received:  (" + data.x + " , " + data.y + ")    Color:"+data.col);
 
-        socket.on('disconnect', function () {
+        //         // Send it to all other clients
+        //         socket.broadcast.emit('mouse_live', data);
+        //         // io.sockets.emit('mouse', data);
+
+        //         // This is a way to send to everyone including sender
+        //         // io.sockets.emit('message', "this goes to everyone");
+
+        //     }
+        // );
+
+        socket.on('disconnect', function (socket) {
             console.log("Client has disconnected");
         });
     }
