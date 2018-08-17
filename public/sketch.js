@@ -1,6 +1,8 @@
 var socket;
 var mycol;
 var user_name;
+var bg
+var par
 // console.log(mycol);
 
 
@@ -10,9 +12,16 @@ function ChangeValue() {
   // console.log(mycol);
 
 }
+function preload() {
+  bg = loadImage("bg.jpg")
+}
+
 function setup() {
-  canvas = createCanvas(400, 400);
-  background(0);
+  par = document.getElementById('container')
+  canvas = createCanvas(par.offsetWidth, 400);
+  // canvas = createCanvas(400, 400);
+  // background(bg);  
+  // background('green');
   canvas.id("game")
   canvas.parent("container")
   mycol = document.getElementById('col').value.toString();
@@ -20,8 +29,8 @@ function setup() {
   // console.log(mycol);
 
 
-  socket = io.connect('https://col-draw.herokuapp.com/'); 
-//   socket = io.connect('http://localhost:3000');
+  // socket = io.connect('https://col-draw.herokuapp.com/');
+    socket = io.connect('http://localhost:3000');
   // We make a named event called 'mouse' and write an
   // anonymous callback function
   socket.on('mouse',
@@ -47,6 +56,7 @@ function setup() {
 }
 
 function draw() {
+  // background(bg);
   // Nothing
 }
 
@@ -84,5 +94,5 @@ function mouseDragged() {
 //   console.log("sendmouse: " + xpos + " " + ypos + " " + mycol);
 
 //   // Make a little object with  x and y  and color
- 
+
 // }

@@ -1,4 +1,23 @@
 body {
-    padding: 0;
     margin: 0;
+    padding-top: 15px;
+    text-align:  center;
+}
+
+canvas#game{
+    /* border: solid 3px red; */
+    /* border-image: url(blackboard.png); */
+}
+
+div#container{
+    width: 90%;
+    /* background-size: auto; */
+    background: url(bbtex.jpg) no-repeat;
+    /* height:  fit-content; */
+    /* background-size: cover; */
+    /* padding: 30px; */
+    background-repeat: repeat;
+    border: 15px solid transparent;
+    padding-right: 30px;
+    border-image: url(wood.jpg) 2 stretch;
 }
