@@ -15,9 +15,8 @@ div#container{
     background: url(bbtex.jpg) no-repeat;
     /* height:  fit-content; */
     /* background-size: cover; */
-    /* padding: 30px; */
+    /* padding-right: 60px; */
     background-repeat: repeat;
-    border: 17px solid transparent;
-    padding-right: 30px;
+    border: 15px solid transparent;
     border-image: url(wood.jpg) 10 stretch;
 }

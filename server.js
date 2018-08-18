@@ -16,7 +16,7 @@ var server = app.listen(process.env.PORT || 3000, listen);
 function listen() {
     var host = server.address().address;
     var port = server.address().port;
-    console.log('Example app listening at http://' + host + ':' + port);
+    console.log('col-draw app listening at http://' + host + ':' + port);
 }
 
 app.use(express.static('public'));
@@ -31,9 +31,10 @@ var io = require('socket.io')(server);
 io.sockets.on('connection',
     // We are given a websocket object in our function
     function (socket) {
-            // counter++;
+            counter++;
             // socket.id=counter;
-        console.log("We have a new client: " + socket.id);
+        console.log("We have a new client: " + counter);
+        // console.log("We have a new client: " + socket.id);
 
         // When this user emits, client side: socket.emit('otherevent',some data);
         socket.on('mouse',

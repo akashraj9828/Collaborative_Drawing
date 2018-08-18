@@ -18,7 +18,7 @@ function preload() {
 
 function setup() {
   par = document.getElementById('container')
-  canvas = createCanvas(par.offsetWidth, 400);
+  canvas = createCanvas(par.offsetWidth-30, 400);
   // canvas = createCanvas(400, 400);
   // background(bg);  
   // background('green');
