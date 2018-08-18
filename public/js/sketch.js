@@ -17,20 +17,20 @@ function preload() {
 }
 
 function setup() {
-  par = document.getElementById('container')
+  par = document.getElementById('canvas-container')
   canvas = createCanvas(par.offsetWidth-30, 400);
   // canvas = createCanvas(400, 400);
   // background(bg);  
   // background('green');
   canvas.id("game")
-  canvas.parent("container")
+  canvas.parent("canvas-container")
   mycol = document.getElementById('col').value.toString();
   user_name = document.getElementById('name').value.toString();
   // console.log(mycol);
 
 
-  socket = io.connect('https://col-draw.herokuapp.com/');
-    // socket = io.connect('http://localhost:3000');
+  // socket = io.connect('https://col-draw.herokuapp.com/');
+    socket = io.connect('http://localhost:3000');
   // We make a named event called 'mouse' and write an
   // anonymous callback function
   socket.on('mouse',

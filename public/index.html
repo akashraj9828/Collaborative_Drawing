@@ -3,9 +3,11 @@
 
 <head>
   <!-- <script src="p5.min.js"></script> -->
-  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <!-- <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script> -->
+  <script src="js/socket.io-1.4.5.js"></script>
   <!-- <script src="sketch_overlay.js"></script> -->
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 </head>
 
 <body>
@@ -15,15 +17,25 @@
   <label for="col" style=" margin:20px" style="width: 50px; margin:20px">Color:</label>
   <input type="color" id="col" onchange="ChangeValue()" value="#eeeeee" style="width: 50px; margin:20px">
   <br>
-  <div id="container">
 
+
+  <div id="asd" class="container-fluid col-sm-12">
+    <div id="canvas-container" class="col-md-9"></div>
+    <div id="chat-container">
+      <div>
+        <label for="message" style=" margin:20px">Message:</label>
+        <input type="text" id="message" onchange="sendMsg()" style="width: 100px; margin:20px">
+      </div>
+
+    </div>
   </div>
  
 </body>
-<script src="p5.js"></script>
-<script src="addons/p5.dom.min.js"></script>
-<script src="addons/p5.sound.min.js"></script>
-<script src="sketch.js"></script>
-<script src="sketch_overlay.js"></script>
+<script src="js/p5.min.js"></script>
+<!-- <script src="addons/p5.dom.min.js"></script> -->
+<!-- <script src="addons/p5.sound.min.js"></script> -->
+<script src="js/sketch.js"></script>
+<!-- <script src="js/bootstap.min.js"></script> -->
+<!-- <script src="sketch_overlay.js"></script> -->
 
 </html>

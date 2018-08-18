@@ -9,14 +9,18 @@ canvas#game{
     /* border-image: url(blackboard.png); */
 }
 
-div#container{
+div#canvas-container{
     width: 700px;
     /* background-size: auto; */
-    background: url(bbtex.jpg) no-repeat;
+    background: url(../bbtex.jpg) no-repeat;
     /* height:  fit-content; */
     /* background-size: cover; */
     /* padding-right: 60px; */
     background-repeat: repeat;
     border: 15px solid transparent;
-    border-image: url(wood.jpg) 10 stretch;
+    border-image: url(../wood.jpg) 10 stretch;
+}
+div#chat-container{
+        height: 400px;
+        background: #66339999;
 }
