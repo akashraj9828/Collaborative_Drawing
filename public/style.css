@@ -10,14 +10,14 @@ canvas#game{
 }
 
 div#container{
-    width: 90%;
+    /* width: 100%; */
     /* background-size: auto; */
     background: url(bbtex.jpg) no-repeat;
     /* height:  fit-content; */
     /* background-size: cover; */
     /* padding: 30px; */
     background-repeat: repeat;
-    border: 15px solid transparent;
+    border: 17px solid transparent;
     padding-right: 30px;
-    border-image: url(wood.jpg) 2 stretch;
+    border-image: url(wood.jpg) 10 stretch;
 }
