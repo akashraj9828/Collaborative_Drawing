@@ -56,6 +56,13 @@ io.sockets.on('connection',
             console.log("User logged in : "+data.name)
             console.log("User color : "+data.col)
         })
+
+        socket.on('chat',(data)=>{
+            console.log("from : " + data.name)
+            console.log("msg recived: " + data.msg)
+            
+            io.sockets.emit('chat', data);
+        })
         // socket.on('mouse_live',
         //     function (data) {
         //         // Data comes in as whatever was sent, including objects

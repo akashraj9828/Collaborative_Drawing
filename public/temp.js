@@ -1,29 +1,78 @@
 
 
-var temp_my=$('#my-message').clone()
-var temp_other=$('#other-message').clone()
-$('#my-message').hide()
-$('#other-message').hide()
+// var temp_my = $('#other-message').clone(true)
+// var temp_my = $('li#other-message').clone()
+var temp_my = $('li#other-message').remove()
+// var temp_other = $('#my-message').clone(true)
+var temp_other = $('li#my-message').remove()
+
+
+
+// $('#other-message').hide()
+// $('#my-message').hide()
 
 var chatHistory = $('.chat-history');
-var chat=chatHistory.find('ul');
-var temp
+var chat = $(".chat-history ul")
+// var temp
 
-var x={name:"akash",
-    msg:"hi its me",
-    time:"9:00am"}
-var msg="adsdadasdadasdeqjdd"
-
-function push_chat(obj){
-    temp = temp_my
-    temp.find('.message').text(obj.msg)
-    temp.find('.message-data-time').text(obj.time)
+var x = {
+    name: "akash",
+    time: "9:00am",
+    msg: "hi its me"
+}
+var y = {
+    name: "akash raj",
+    time: "9:00am",
+    msg: "hi noooooooooooo me"
+}
+var z = {
+    name: "akash iooda",
+    time: "900am",
+    msg: "hi asd3qooo me"
+}
+// var msg="adsdadasdadasdeqjdd"
+var user_name = "akash"
+var c=0
+function push_chat(obj) {
+    if (obj.name == user_name)
+    temp = temp_other.clone()
+    else
+    temp =temp_my.clone()
     temp.find('.message-data-name').text(obj.name)
+    temp.find('.message-data-time').text(obj.time)
+    temp.find('.message').text(obj.msg)
+    u=temp_other.attr('id');
+// console.log(u)
+    c++
+    // console.log(c+"::"+chat.length)
+    // temp.appendTo(chat)
     chat.append(temp)
+    // chat.after(temp)
 }
 
 push_chat(x)
+push_chat(y)
+push_chat(z)
+push_chat(x)
+push_chat(y)
+push_chat(z)
+// chat.append(temp_my)
+// chat.append(temp_my)
+// chat.append(temp_other)
+// push_chat(x)
 
+function sendmsg() {
+    var text = $('#message-to-send').val()
+    var d = new Date()
+    var time = d.toLocaleString('en-US', { hour: 'numeric', minute: "numeric", hour12: true })
+    var msg = {
+        name: user_name,
+        msg: text,
+        time: time
+    }
+    push_chat(msg)
+    // socket.emit("chat",msg)
+}
 
 
 // (function () {

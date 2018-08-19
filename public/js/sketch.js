@@ -6,6 +6,9 @@ var par
 // console.log(mycol);
 
 
+socket = io.connect('https://col-draw.herokuapp.com/');
+// socket = io.connect('http://localhost:3000');
+
 
 function preload() {
   bg = loadImage("bg.jpg")
@@ -25,8 +28,6 @@ function setup() {
   // console.log(mycol);
 
 
-  // socket = io.connect('https://col-draw.herokuapp.com/');
-  socket = io.connect('http://localhost:3000');
   // We make a named event called 'mouse' and write an
   // anonymous callback function
   socket.on('mouse',
@@ -39,6 +40,9 @@ function setup() {
       ellipse(data.x, data.y, 20, 20);
     }
   );
+  socket.on("chat",(data)=>{
+    push_chat(data)
+  })
   // socket.on('mouse_live',
   //   // When we receive data
   //   function (data) {
@@ -113,4 +117,56 @@ function submit() {
     alert(`Name is required`)
   }
 
+}
+
+
+
+
+// var temp_my = $('#other-message').clone(true)
+// var temp_my = $('li#other-message').clone()
+var temp_my = $('li#my-message').remove()
+// var temp_other = $('#my-message').clone(true)
+var temp_other = $('li#other-message').remove()
+
+
+
+// $('#other-message').hide()
+// $('#my-message').hide()
+
+var chatHistory = $('.chat-history');
+var chat = $(".chat-history ul")
+// var temp
+
+var x = {
+  name: "BOT🤖",
+  time: "9:00am",
+  msg: "Start chatting"
+}
+
+function push_chat(obj) {
+  if (obj.name == user_name)
+    temp = temp_my.clone()
+  else
+    temp = temp_other.clone()
+  temp.find('.message-data-name').text(obj.name)
+  temp.find('.message-data-time').text(obj.time)
+  temp.find('.message').text(obj.msg)
+  u = temp_other.attr('id');
+  chat.append(temp)
+}
+
+push_chat(x)
+
+function sendmsg() {
+  var text = $('#message-to-send').val()
+  var d = new Date()
+  var time = d.toLocaleString('en-US', { hour: 'numeric', minute: "numeric", hour12: true })
+  var msg = {
+    name: user_name,
+    msg: text,
+    time: time
+  }
+  $('#message-to-send').val("")
+  // push_chat(msg)
+  socket.emit("chat",msg)
 }
