@@ -5,7 +5,6 @@
             <div class="chat-about">
                 <div class="chat-with">Chat</div>
             </div>
-            <i class="fa fa-star"></i>
         </div>
         <!-- end chat-header -->
 
@@ -17,13 +16,8 @@
         <!-- end chat-history -->
 
         <div class="chat-message clearfix">
-            <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3"></textarea>
-
-            <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
-            <i class="fa fa-file-image-o"></i>
-
-            <button>Send</button>
-
+            <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="1"></textarea>
+            <button onclick="sendmsg()">Send</button>
         </div>
         <!-- end chat-message -->
 
@@ -38,7 +32,7 @@
     <div class="message-data align-right">
         <span class="message-data-time">{{time}}, {{date}}</span> &nbsp; &nbsp;
         <span class="message-data-name">{{name}}</span>
-        <i class="fa fa-circle me"></i>
+        <!-- <i class="fa fa-circle me"></i> -->
     </div>
     <div class="message other-message float-right">
         {{messageOutput}}
@@ -49,8 +43,9 @@
 <!-- my reply -->
 <li id="my-message">
     <div class="message-data">
-        <span class="message-data-name">
-            <i class="fa fa-circle"></i> {{name}}</span>
+        <span class="message-data-name">{{name}}</span>
+            <!-- <i class="fa fa-circle"></i> -->
+             
         <span class="message-data-time">{{time}}, {{date}}</span>
     </div>
     <div class="message my-message">
