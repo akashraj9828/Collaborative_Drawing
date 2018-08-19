@@ -6,6 +6,9 @@ var par
 // console.log(mycol);
 
 
+socket = io.connect('https://col-draw.herokuapp.com/');
+// socket = io.connect('http://localhost:3000');
+
 
 function preload() {
   bg = loadImage("bg.jpg")
@@ -25,8 +28,6 @@ function setup() {
   // console.log(mycol);
 
 
-  // socket = io.connect('https://col-draw.herokuapp.com/');
-  socket = io.connect('http://localhost:3000');
   // We make a named event called 'mouse' and write an
   // anonymous callback function
   socket.on('mouse',
@@ -121,65 +122,39 @@ function submit() {
 
 
 
-// var temp_my = $('#my-message').clone(true)
-// var temp_my = $('li#my-message').clone()
+// var temp_my = $('#other-message').clone(true)
+// var temp_my = $('li#other-message').clone()
 var temp_my = $('li#my-message').remove()
-// var temp_other = $('#other-message').clone(true)
+// var temp_other = $('#my-message').clone(true)
 var temp_other = $('li#other-message').remove()
 
 
 
-// $('#my-message').hide()
 // $('#other-message').hide()
+// $('#my-message').hide()
 
 var chatHistory = $('.chat-history');
 var chat = $(".chat-history ul")
 // var temp
 
 var x = {
-  name: "akash",
+  name: "BOT🤖",
   time: "9:00am",
-  msg: "hi its me"
+  msg: "Start chatting"
 }
-var y = {
-  name: "akash raj",
-  time: "9:00am",
-  msg: "hi noooooooooooo me"
-}
-var z = {
-  name: "akash iooda",
-  time: "900am",
-  msg: "hi asd3qooo me"
-}
-// var msg="adsdadasdadasdeqjdd"
-var user_name = "akash"
-var c = 0
+
 function push_chat(obj) {
   if (obj.name == user_name)
-    temp = temp_other.clone()
-  else
     temp = temp_my.clone()
+  else
+    temp = temp_other.clone()
   temp.find('.message-data-name').text(obj.name)
   temp.find('.message-data-time').text(obj.time)
   temp.find('.message').text(obj.msg)
   u = temp_other.attr('id');
-  // console.log(u)
-  c++
-  // console.log(c+"::"+chat.length)
-  // temp.appendTo(chat)
   chat.append(temp)
-  // chat.after(temp)
 }
 
-push_chat(x)
-push_chat(y)
-push_chat(z)
-push_chat(x)
-push_chat(y)
-push_chat(z)
-// chat.append(temp_other)
-// chat.append(temp_my)
-// chat.append(temp_my)
 push_chat(x)
 
 function sendmsg() {

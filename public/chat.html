@@ -28,27 +28,27 @@
 <!-- end container -->
 
 <!-- //others -->
-<li id="other-message" class="clearfix">
-    <div class="message-data align-right">
+<li id="my-message" class="clearfix">
+    <div class="message-data">
         <span class="message-data-time">{{time}}, {{date}}</span> &nbsp; &nbsp;
         <span class="message-data-name">{{name}}</span>
         <!-- <i class="fa fa-circle me"></i> -->
     </div>
-    <div class="message other-message float-right">
+    <div class="message my-message float-right">
         {{messageOutput}}
     </div>
 </li>
 
 
 <!-- my reply -->
-<li id="my-message">
-    <div class="message-data">
+<li id="other-message">
+    <div class="message-data align-left" style=" text-align: left; ">
         <span class="message-data-name">{{name}}</span>
             <!-- <i class="fa fa-circle"></i> -->
              
         <span class="message-data-time">{{time}}, {{date}}</span>
     </div>
-    <div class="message my-message">
+    <div class="message other-message">
         {{response}}
     </div>
 </li>

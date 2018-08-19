@@ -1,15 +1,15 @@
 
 
-// var temp_my = $('#my-message').clone(true)
-// var temp_my = $('li#my-message').clone()
-var temp_my = $('li#my-message').remove()
-// var temp_other = $('#other-message').clone(true)
-var temp_other = $('li#other-message').remove()
+// var temp_my = $('#other-message').clone(true)
+// var temp_my = $('li#other-message').clone()
+var temp_my = $('li#other-message').remove()
+// var temp_other = $('#my-message').clone(true)
+var temp_other = $('li#my-message').remove()
 
 
 
-// $('#my-message').hide()
 // $('#other-message').hide()
+// $('#my-message').hide()
 
 var chatHistory = $('.chat-history');
 var chat = $(".chat-history ul")
