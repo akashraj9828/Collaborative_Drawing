@@ -51,6 +51,11 @@ io.sockets.on('connection',
 
             }
         );
+
+        socket.on('user',(data)=>{
+            console.log("User logged in : "+data.name)
+            console.log("User color : "+data.col)
+        })
         // socket.on('mouse_live',
         //     function (data) {
         //         // Data comes in as whatever was sent, including objects

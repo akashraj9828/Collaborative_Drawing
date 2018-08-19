@@ -6,19 +6,15 @@ var par
 // console.log(mycol);
 
 
-function ChangeValue() {
-  mycol = document.getElementById('col').value;
-  user_name = document.getElementById('name').value;
-  // console.log(mycol);
 
-}
 function preload() {
   bg = loadImage("bg.jpg")
 }
 
 function setup() {
-  par = document.getElementById('canvas-container')
-  canvas = createCanvas(par.offsetWidth-30, 400);
+  // par = document.getElementById('canvas-container')
+  par=$('#canvas-container')
+  canvas = createCanvas(par.width(), 400);
   // canvas = createCanvas(400, 400);
   // background(bg);  
   // background('green');
@@ -30,7 +26,7 @@ function setup() {
 
 
   // socket = io.connect('https://col-draw.herokuapp.com/');
-    socket = io.connect('http://localhost:3000');
+  socket = io.connect('http://localhost:3000');
   // We make a named event called 'mouse' and write an
   // anonymous callback function
   socket.on('mouse',
@@ -96,3 +92,25 @@ function mouseDragged() {
 //   // Make a little object with  x and y  and color
 
 // }
+
+$('#blackboard-chat-container').hide()
+
+function submit() {
+  mycol = $('#col').val();
+  user_name = $(`#name`).val()
+  var user = {
+    name: user_name,
+    col: mycol
+  }
+  
+  // console.log(mycol);
+  if ($(`#name`).val() != '') {
+    socket.emit('user', user)
+    $(`#welcome-screen`).slideUp();
+    $('#blackboard-chat-container').show()
+
+  } else {
+    alert(`Name is required`)
+  }
+
+}

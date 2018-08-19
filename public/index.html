@@ -11,17 +11,24 @@
 </head>
 
 <body>
-  <label for="name" style=" margin:20px">Name:</label>
-  <input type="text" id="name" onchange="ChangeValue()" style="width: 100px; margin:20px">
+  <div id="welcome-screen">
+    <div style="margin-top: 35vh;">
+      <h1 id="welcome-msg">Welcome to the BlackBoard</h1>
+      <!-- <label for="name" style="  margin:20px">Name:</label> -->
+      <h3>Please enter your name:</h3>
+      <input class="form-control" type="text" id="name"  style="display: unset;width: 230px;margin:20px;font-size: 20px;text-align: center;" autofocus placeholder="Name" required>
+      <br>
+      <h3>Chose your Color:</h3>
+      <input type="color" id="col" onchange="fun()" value="#eeeeee" style="width: 60px;margin: 30px;margin-top: 15px;height: 25px;">
+      <br>
+      <button type="submit" class="btn btn-danger" onclick="submit()">Enter</button>
+    </div>
 
-  <label for="col" style=" margin:20px" style="width: 50px; margin:20px">Color:</label>
-  <input type="color" id="col" onchange="ChangeValue()" value="#eeeeee" style="width: 50px; margin:20px">
-  <br>
+  </div>
 
-
-  <div id="asd" class="container-fluid col-sm-12">
-    <div id="canvas-container" class="col-md-9"></div>
-    <div id="chat-container">
+  <div id="blackboard-chat-container" class="container-fluid col-sm-12">
+    <div id="canvas-container" class=""></div>
+    <div id="chat-container" class="col-md-3">
       <div>
         <label for="message" style=" margin:20px">Message:</label>
         <input type="text" id="message" onchange="sendMsg()" style="width: 100px; margin:20px">
@@ -29,11 +36,11 @@
 
     </div>
   </div>
- 
+
 </body>
 <script src="js/p5.min.js"></script>
 <!-- <script src="addons/p5.dom.min.js"></script> -->
-<!-- <script src="addons/p5.sound.min.js"></script> -->
+<script src="js/jquery.js"></script>
 <script src="js/sketch.js"></script>
 <!-- <script src="js/bootstap.min.js"></script> -->
 <!-- <script src="sketch_overlay.js"></script> -->
