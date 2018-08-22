@@ -55,13 +55,18 @@ io.sockets.on('connection',
         socket.on('user',(data)=>{
             console.log("User logged in : "+data.name)
             console.log("User color : "+data.col)
+            socket.broadcast.emit('user',data)
         })
 
         socket.on('chat',(data)=>{
-            console.log("from : " + data.name)
-            console.log("msg recived: " + data.msg)
+            console.log("$Chat$(" + data.name+":"+data.msg+")")
+            // console.log("msg recived: " + data.msg)
             
             io.sockets.emit('chat', data);
+        })
+        socket.on('clearCanvas',(data)=>{
+            console.log("Board Cleared by : "+data.name)
+            io.sockets.emit('clearCanvas',data)
         })
         // socket.on('mouse_live',
         //     function (data) {

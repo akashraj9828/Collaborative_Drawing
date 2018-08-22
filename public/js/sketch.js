@@ -1,6 +1,7 @@
 var socket;
 var mycol;
 var user_name;
+var canvas
 var bg
 var par
 var debug=false
@@ -34,7 +35,7 @@ function setup() {
   socket.on('mouse',
     // When we receive data
     function (data) {
-      console.log("Got: " + data.x + " " + data.y);
+      // console.log("Got: " + data.x + " " + data.y);
       // Draw a blue circle
       fill(data.col);
       noStroke();
@@ -54,6 +55,25 @@ function setup() {
   //     text(data.name, data.x, data.y)
   //   }
   // );
+
+  var elem = $('.color-input')[0];
+  var hueb = new Huebee(elem, {
+    shades: 6,
+    staticOpen: true,
+    notation: 'hex',
+    customColors: ['#C25', '#E62', '#EA0', '#19F', '#333', 'green', 'cyan', 'red', 'purple'],
+    saturations: 1,
+    hue0: 200,
+    hues: 20
+  });
+
+  hueb.on('change', function (color) {
+    // console.log(color)
+    mycol = color
+    // circle.style.fill = color;
+  });
+
+
 }
 
 function draw() {
@@ -101,8 +121,8 @@ function mouseDragged() {
 
 if(debug)
 $(`#welcome-screen`).hide();
-else
-$('#blackboard-chat-container').hide()
+// else
+// $('#blackboard-chat-container').hide()
 
 function submit() {
   mycol = $('#col').val();
@@ -142,22 +162,23 @@ var chatHistory = $('.chat-history');
 var chat = $(".chat-history ul")
 // var temp
 
-var x = {
-  name: "BOT🤖",
-  time: "9:00am",
-  msg: "Start chatting"
-}
 
 function push_chat(obj) {
   if (obj.name == user_name)
-    temp = temp_my.clone()
+  temp = temp_my.clone()
   else
-    temp = temp_other.clone()
+  temp = temp_other.clone()
   temp.find('.message-data-name').text(obj.name)
   temp.find('.message-data-time').text(obj.time)
   temp.find('.message').text(obj.msg)
   u = temp_other.attr('id');
   chat.append(temp)
+}
+
+var x = {
+  name: "BOT🤖",
+  time: "9:00am",
+  msg: "Start chatting"
 }
 
 push_chat(x)
@@ -174,4 +195,54 @@ function sendmsg() {
   $('#message-to-send').val("")
   // push_chat(msg)
   socket.emit("chat",msg)
+}
+
+//color picker
+
+
+// var m=1
+function clearCanvas(){
+  let x={name:user_name}
+socket.emit('clearCanvas',x)
+// m++
+} 
+
+socket.on('clearCanvas',(data)=>{
+  canvas.clear();
+  // showalert("Board cleared by "+ data.name,"danger")
+  notification("Board cleared by " + data.name)
+})
+
+socket.on('user',(data)=>{
+  notification(data.name+ "  Joined the lobby!")
+})
+function showalert(message, alerttype) {
+  let temp =`<div class="alert alert-`+alerttype+` alert-dismissible" id="myAlert">
+    <a href="#" data-dismiss="alert" class="close">&times;</a>
+     `+message+`
+    </div>`
+  if ($("#alert-placeholder")[0].childElementCount>1)
+    $("#alert-placeholder")[0].lastChild.remove()
+    // $("#alert-placeholder").empty()
+  // $('#alert-placeholder').append(temp)
+  $('#alert-placeholder').prepend('<div id="alertdiv" class="alert alert-' + alerttype + '"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>')
+
+  // setTimeout(function () { // this will automatically close the alert and remove this if the users doesnt close it in 5 secs
+
+
+  //   $("#alert-placeholder").remove();
+
+  // }, 5000);
+}
+
+
+function notification(message) {
+  // Get the snackbar DIV
+  let x = document.getElementById("snackbar");
+  x.innerHTML=message
+  // Add the "show" class to DIV
+  x.className = "show";
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 }

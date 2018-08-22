@@ -2,6 +2,7 @@ body {
     margin: 0;
     /* padding-top: 15px; */
     text-align:  center;
+    background: url(../tex.jpg) !important;
 }
 div#welcome-screen{
     width: 100%;
@@ -9,8 +10,7 @@ div#welcome-screen{
     z-index:  100;
     position: fixed;
     top: 0;
-    /* background:  rebeccapurple; */
-    background: url(../tex.jpg);
+    background: url(../tex.jpg) !important;
 }
 #welcome-msg{
     color: darkgray;
@@ -26,12 +26,15 @@ canvas#game{
     /* border-image: url(blackboard.png); */
 }
 #blackboard-chat-container{
-    background: url(../tex.jpg);
-    height:  100vh;
+    width: 1366px;
+    height: 100vh;
     padding-top: 7vh;
+    position: unset;
 }
 
 div#canvas-container{
+    position:  unset;
+    margin-left: 25px;
     width: 700px;
     /* background-size: auto; */
     background: url(../bbtex.jpg) no-repeat;
@@ -45,6 +48,7 @@ div#canvas-container{
     float:  left;
 }
 div#chat-container{
+        position: inherit;
         height: 400px;
         /* background: #66339999; */
         /* display:  inline-block; */
@@ -104,6 +108,7 @@ body {
 }
 .chat .chat-history .message-data {
   margin-bottom: 15px;
+  padding-right:  5px;
 }
 .chat .chat-history .message-data-time {
   color: #a8aab1;
@@ -204,4 +209,84 @@ body {
 
 #chat-thread{ 
 list-style-type: none;
+}
+
+.message-data-name{
+    text-transform: capitalize;
+    font-weight:  bold;
+}
+
+.huebee__container {
+  background: #22271c !important;
+  border: solid 3px #6f4025;
+}
+
+#color-picker{
+  /* display: inline; */
+  width:  fit-content;
+  margin-top: 10px;
+  margin-left: 55px;
+  float: left;
+  right:  0;
+}
+
+#clear-btn{
+  margin-top: 10px;
+}
+#blackboard-buttons{
+  width: fit-content;
+  display: inline-block;
+  margin-top:  10px;
+  left:  0;
+}
+
+#alert-placeholder{
+  /* background: red; */
+  /* height: 30px; */
+}
+
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+    visibility: visible; /* Show the snackbar */
+
+/* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
 }

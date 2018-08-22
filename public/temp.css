@@ -146,3 +146,7 @@ body {
 #chat-thread{ 
 list-style-type: none;
 }
+
+html{
+  height: 100%
+}
