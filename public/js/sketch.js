@@ -97,7 +97,10 @@ function mouseDragged() {
 
 // }
 
-$('#blackboard-chat-container').hide()
+
+
+// $('#blackboard-chat-container').hide()
+$(`#welcome-screen`).hide();
 
 function submit() {
   mycol = $('#col').val();
