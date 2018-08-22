@@ -3,6 +3,7 @@ var mycol;
 var user_name;
 var bg
 var par
+var debug=false
 // console.log(mycol);
 
 
@@ -98,9 +99,10 @@ function mouseDragged() {
 // }
 
 
-
-// $('#blackboard-chat-container').hide()
+if(debug)
 $(`#welcome-screen`).hide();
+else
+$('#blackboard-chat-container').hide()
 
 function submit() {
   mycol = $('#col').val();
