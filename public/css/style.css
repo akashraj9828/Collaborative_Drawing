@@ -29,23 +29,12 @@ div#welcome-screen {
   margin-bottom: 0;
 }
 
-div#name-color-container {
-  /* display:  inline; */
-  /* display:  table-cell; */
-  /* vertical-align:  middle; */
-}
-
-canvas#game {
-  /* border: solid 3px red; */
-  /* border-image: url(blackboard.png); */
-}
 
 #blackboard-chat-container {
   /* width: 1366px; */
   height: 100vh;
   /* padding-top: 2vh; */
   position: unset;
-  overflow: ;
 }
 
 div#canvas-container {
@@ -176,7 +165,6 @@ body {
 
 .chat .chat-history .my-message {
   background: #94c2ed;
-  width: ;
 }
 
 .chat .chat-history .my-message:after {
@@ -220,7 +208,6 @@ body {
   box-shadow: 4px 3px 20px 0px #00000082;
 }
 
-button.btn.btn-default.col-md-3 {}
 
 .online,
 .offline,
@@ -434,6 +421,7 @@ ul#online_users li {
 
 *::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   /*   border-radius: 10px; */
   background-color: #333333;
 }
@@ -447,6 +435,7 @@ ul#online_users li {
 *::-webkit-scrollbar-thumb {
   border-radius: 8px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
   background-color: #555;
   border: #929292 solid 0.5px
 }
