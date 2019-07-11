@@ -20,7 +20,7 @@ function listen() {
     console.log('col-draw app listening at http://' + host + ':' + port);
 }
 
-app.use(express.static('public'));
+app.use(express.static('./public/'));
 
 
 // WebSocket Portion
