@@ -3,13 +3,18 @@ var mycol;
 var user_name;
 var canvas
 var bg
+var width
+var height
 var par
-var debug=false
+var debug = false
+var online_users_list = []
 // console.log(mycol);
-
-
+var me
+var emojis = ['😈', '😌', '😜', '😀', '👻', '💀', '🐠', '😏', '🧛‍', '🦄', '🐼', '🐒', '🐢', '🐇', '🐟', '🐌', '🦇', '🐣', '🐶', '👽', '🤓', '🙊', '⚡', '🔥', '👱‍', '🤷', '🎃', '🤴', '🎅', ]
+var illegal_chars = ['\\', '"', "'", '`', ';', ]
 socket = io.connect('https://col-draw.herokuapp.com/');
 // socket = io.connect('http://localhost:3000');
+// socket = io.connect('http://192.168.0.14:3000');
 
 
 function preload() {
@@ -17,17 +22,17 @@ function preload() {
 }
 
 function setup() {
-  // par = document.getElementById('canvas-container')
-  par=$('#canvas-container')
-  canvas = createCanvas(par.width(), 400);
-  // canvas = createCanvas(400, 400);
-  // background(bg);  
-  // background('green');
+  par = $('#canvas-container')
+  width = par.width()
+  height = 400
+  canvas = createCanvas(width, height);
+
   canvas.id("game")
   canvas.parent("canvas-container")
+
   mycol = document.getElementById('col').value.toString();
   user_name = document.getElementById('name').value.toString();
-  // console.log(mycol);
+
 
 
   // We make a named event called 'mouse' and write an
@@ -42,19 +47,9 @@ function setup() {
       ellipse(data.x, data.y, 20, 20);
     }
   );
-  socket.on("chat",(data)=>{
+  socket.on("chat", (data) => {
     push_chat(data)
   })
-  // socket.on('mouse_live',
-  //   // When we receive data
-  //   function (data) {
-  //     // console.log("Got: " + data.x + " " + data.y);
-  //     // Draw a blue circle
-  //     fill(data.col+"80");
-  //     noStroke();
-  //     text(data.name, data.x, data.y)
-  //   }
-  // );
 
   var elem = $('.color-input')[0];
   var hueb = new Huebee(elem, {
@@ -70,6 +65,10 @@ function setup() {
   hueb.on('change', function (color) {
     // console.log(color)
     mycol = color
+    me.col = mycol
+    // console.table(me)
+    socket.emit('color_change', me);
+
     // circle.style.fill = color;
   });
 
@@ -92,46 +91,41 @@ function mouseDragged() {
     y: mouseY,
     col: mycol
   };
+
   // Send that object to the socket
-  socket.emit('mouse', data);
-  // sendmouse(user_name, mouseX, mouseY, mycol);
+  if (data.x >= 0 && data.x <= width && data.y >= 0 && data.y <= height)
+    socket.emit('mouse', data);
 }
 
-// function mouseMoved() {
-//   var data = {
-//     name: user_name,
-//     x: mouseX,
-//     y: mouseY,
-//     col: mycol+"80"
-//   };
-
-//   // Send that object to the socket
-//   socket.emit('mouse_live', data);
-// }
-
-// // Function for sending to the socket
-// function sendmouse(xpos, ypos, mycol) {
-//   // We are sending!
-//   console.log("sendmouse: " + xpos + " " + ypos + " " + mycol);
-
-//   // Make a little object with  x and y  and color
-
-// }
 
 
-if(debug)
-$(`#welcome-screen`).hide();
-// else
-// $('#blackboard-chat-container').hide()
+
+
+if (debug)
+  $(`#welcome-screen`).hide();
+
+function remove_illegal_char(text) {
+
+  for (e of illegal_chars) {
+    while (text.includes(e))
+      text = text.replace(e, '_')
+  }
+  return text
+}
 
 function submit() {
   mycol = $('#col').val();
   user_name = $(`#name`).val()
+
+  user_name = remove_illegal_char(user_name)
+  user_name = user_name.replace(/ /g, '_')
+  e = Math.floor(Math.random(0) * (emojis.length))
   var user = {
     name: user_name,
-    col: mycol
+    col: mycol,
+    emoji: e,
   }
-  
+
   // console.log(mycol);
   if ($(`#name`).val() != '') {
     socket.emit('user', user)
@@ -145,39 +139,41 @@ function submit() {
 }
 
 
+// chatting
 
-
-// var temp_my = $('#other-message').clone(true)
-// var temp_my = $('li#other-message').clone()
 var temp_my = $('li#my-message').remove()
-// var temp_other = $('#my-message').clone(true)
 var temp_other = $('li#other-message').remove()
 
 
 
-// $('#other-message').hide()
-// $('#my-message').hide()
 
 var chatHistory = $('.chat-history');
 var chat = $(".chat-history ul")
-// var temp
 
 
 function push_chat(obj) {
   if (obj.name == user_name)
-  temp = temp_my.clone()
+    temp = temp_my.clone()
   else
-  temp = temp_other.clone()
+    temp = temp_other.clone()
   temp.find('.message-data-name').text(obj.name)
   temp.find('.message-data-time').text(obj.time)
   temp.find('.message').text(obj.msg)
   u = temp_other.attr('id');
   chat.append(temp)
+
+  $('.chat-history').animate({
+    scrollTop: $('.chat-history').get(0).scrollHeight
+  }, 100);
 }
 
 var x = {
   name: "BOT🤖",
-  time: "9:00am",
+  time: new Date().toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: "numeric",
+    hour12: true
+  }),
   msg: "Start chatting"
 }
 
@@ -185,64 +181,138 @@ push_chat(x)
 
 function sendmsg() {
   var text = $('#message-to-send').val()
+  text = remove_illegal_char(text)
+  if (text == '')
+    return 0
   var d = new Date()
-  var time = d.toLocaleString('en-US', { hour: 'numeric', minute: "numeric", hour12: true })
+  var time = d.toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: "numeric",
+    hour12: true
+  })
   var msg = {
     name: user_name,
     msg: text,
     time: time
   }
   $('#message-to-send').val("")
-  // push_chat(msg)
-  socket.emit("chat",msg)
+  socket.emit("chat", msg)
 }
 
-//color picker
 
+var online_ul = $(".online-users ul")
+var online_template = "<li><h2 id='{{name}}' style='color: {{color}}; '>{{emoji}}{{name}}</h2></li>"
 
-// var m=1
-function clearCanvas(){
-  let x={name:user_name}
-socket.emit('clearCanvas',x)
-// m++
-} 
+function add_online(obj) {
+  // console.log(e)
+  temp = online_template
+  temp = temp.replace('{{color}}', obj.col).replace(/{{name}}/g, obj.name).replace('{{emoji}}', emojis[obj.emoji])
+  online_ul.append(temp)
+}
 
-socket.on('clearCanvas',(data)=>{
+for (e of online_users_list) {
+  add_online(e)
+}
+
+function clearCanvas() {
+  let x = {
+    name: user_name
+  }
+  socket.emit('clearCanvas', x)
+}
+
+socket.on('clearCanvas', (data) => {
   canvas.clear();
   // showalert("Board cleared by "+ data.name,"danger")
   notification("Board cleared by " + data.name)
 })
 
-socket.on('user',(data)=>{
-  notification(data.name+ "  Joined the lobby!")
+socket.on('user', (data) => {
+  notification(data.name + "  Joined the lobby!")
+  online_users_list.push(data)
+  add_online(data)
+  // console.table(online_users_list)
+
 })
+
+socket.on('color_change', (data) => {
+  notification(data.name + "  Changed color")
+  for (i = 0; i < online_users_list.length; i++) {
+    if (data.socket_id == online_users_list[i].socket_id) {
+      online_users_list[i].col = data.col
+    }
+  }
+  // console.table(online_users_list)
+  update_online_users()
+})
+
+function update_online_users() {
+  for (e of online_users_list) {
+    id = '#' + e.name
+    $(id).css('color', e.col)
+  }
+}
+
+function remove_online(data) {
+  id = '#' + data.name
+  $(id).remove()
+}
+
 function showalert(message, alerttype) {
-  let temp =`<div class="alert alert-`+alerttype+` alert-dismissible" id="myAlert">
+  let temp = `<div class="alert alert-` + alerttype + ` alert-dismissible" id="myAlert">
     <a href="#" data-dismiss="alert" class="close">&times;</a>
-     `+message+`
+     ` + message + `
     </div>`
-  if ($("#alert-placeholder")[0].childElementCount>1)
+  if ($("#alert-placeholder")[0].childElementCount > 1)
     $("#alert-placeholder")[0].lastChild.remove()
-    // $("#alert-placeholder").empty()
-  // $('#alert-placeholder').append(temp)
   $('#alert-placeholder').prepend('<div id="alertdiv" class="alert alert-' + alerttype + '"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>')
-
-  // setTimeout(function () { // this will automatically close the alert and remove this if the users doesnt close it in 5 secs
-
-
-  //   $("#alert-placeholder").remove();
-
-  // }, 5000);
 }
 
 
 function notification(message) {
   // Get the snackbar DIV
   let x = document.getElementById("snackbar");
-  x.innerHTML=message
+  x.innerHTML = message
   // Add the "show" class to DIV
   x.className = "show";
 
   // After 3 seconds, remove the show class from DIV
-  setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+  setTimeout(function () {
+    x.className = x.className.replace("show", "");
+  }, 3000);
 }
+
+$('input#message-to-send[type=text]').on('keydown', function (e) {
+  if (e.which == 13) {
+    sendmsg()
+  }
+});
+
+
+socket.on('online_users', (online_users) => {
+  online_users_list = online_users
+  for (i = 0; i < online_users_list.length; i++) {
+    if (online_users_list[i].name == user_name) {
+      me = online_users_list[i]
+    }
+  }
+
+  for (e of online_users_list) {
+    add_online(e)
+  }
+  //  console.table(online_users_list)
+})
+
+var du
+socket.on('someone_disconnected', (d_user) => {
+  du = d_user
+  // console.table(d_user)
+  for (i = 0; i < online_users_list.length; i++) {
+    if (online_users_list[i].socket_id == du.socket_id) {
+      online_users_list.splice(i, 1);
+    }
+  }
+  // console.table(online_users_list)
+  notification(d_user.name + ' Disconnected')
+  remove_online(d_user)
+})
