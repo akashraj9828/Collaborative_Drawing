@@ -7,30 +7,54 @@ var counter = 0;
 var express = require('express');
 // Create the app
 var app = express();
-
+const expressip = require('express-ip');
 // Set up the server
 // process.env.PORT is related to deploying on heroku
 var server = app.listen(process.env.PORT || 3000, listen);
 
+var ip_list=[]
+
+
+
+app.use(expressip().getIpInfoMiddleware,(req,res,next)=>{
+    var ip_addr= req.headers['x-forwarded-for']
+    if (!ip_list.includes(ip_addr)) {
+        console.log('*'.repeat(100));
+        console.log('IP: ',ip_addr);
+        console.log('Host: ', req.headers['host']);
+        console.log('User agent: ', req.headers['user-agent']);
+        console.log('Location: ' + req.ipInfo.country, '(' + req.ipInfo.region + ' / ' + req.ipInfo.city,')');
+        console.log('Coordinates: ' + req.ipInfo.ll)
+        console.log('Timezone: ' + req.ipInfo.timezone)
+        console.log('*'.repeat(100));
+        ip_list.push(ip_addr)
+
+    }
+     next();
+    });
+
+
+app.use(express.static('./public/'));
+
 var online_users = []
-// This call back just tells us that the server has started
+// // This call back just tells us that the server has started
 function listen() {
     var host = server.address().address;
     var port = server.address().port;
     console.log('col-draw app listening at http://' + host + ':' + port);
 }
 
-app.use(express.static('./public/'));
 
 
-// WebSocket Portion
-// WebSockets work with the HTTP server
+// // WebSocket Portion
+// // WebSockets work with the HTTP server
 var io = require('socket.io')(server);
 
 // Register a callback function to run when we have an individual connection
 // This is run for each individual user that connects
 io.sockets.on('connection', function (socket) {
 
+    // console.log(socket)
     user = null;
     // console.log("We have a new client: " + socket.id);
 
@@ -54,7 +78,7 @@ io.sockets.on('connection', function (socket) {
         data.socket_id = socket.id
         user = data
         online_users.push(data)
-        console.log(data.name + ' Connected.')
+        console.log('$New Connection$ '+data.name + ' Connected.')
         // console.log("User color : "+data.col)
         // send online users data to new connected user only
         io.to(socket.id).emit('online_users', online_users)
@@ -76,7 +100,7 @@ io.sockets.on('connection', function (socket) {
         io.sockets.emit('color_change', data);
     })
     socket.on('clearCanvas', (data) => {
-        console.log(data.name + " Cleared the Board.")
+        console.log("$Board Cleared$ " + data.name + " Cleared the Board.")
         io.sockets.emit('clearCanvas', data)
     })
 
@@ -88,7 +112,7 @@ io.sockets.on('connection', function (socket) {
                 // console.log(i)
                 disconnected_user = online_users.splice(i, 1)
                 io.sockets.emit('someone_disconnected', disconnected_user[0])
-                console.log(disconnected_user[0].name + ' Disconnected.')
+                console.log("$Disconnected$ " + disconnected_user[0].name + ' Disconnected.')
 
             }
         }
