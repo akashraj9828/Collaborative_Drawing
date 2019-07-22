@@ -9,47 +9,33 @@ var par
 var debug = false
 var online_users_list = []
 // console.log(mycol);
-var me
+
+var size
+var me={name:'alal',
+col:"#ee00ee"}
 var emojis = ['😈', '😌', '😜', '😀', '👻', '💀', '🐠', '😏', '🧛‍', '🦄', '🐼', '🐒', '🐢', '🐇', '🐟', '🐌', '🦇', '🐣', '🐶', '👽', '🤓', '🙊', '⚡', '🔥', '👱‍', '🤷', '🎃', '🤴', '🎅', ]
 var illegal_chars = ['\\', '"', "'", '`', ';', ]
-socket = io.connect('https://col-draw.herokuapp.com/');
-// socket = io.connect('http://localhost:3000');
+// socket = io.connect('https://col-draw.herokuapp.com/');
+socket = io.connect('http://localhost:3000');
 // socket = io.connect('http://192.168.0.14:3000');
 
 
 function preload() {
-  bg = loadImage("bg.jpg")
+  bg = loadImage("./../bbtex.jpg")
 }
 
 function setup() {
   par = $('#canvas-container')
+  size=5
   width = par.width()
   height = 400
   canvas = createCanvas(width, height);
 
   canvas.id("game")
   canvas.parent("canvas-container")
-
+  canvas.background(bg)
   mycol = document.getElementById('col').value.toString();
   user_name = document.getElementById('name').value.toString();
-
-
-
-  // We make a named event called 'mouse' and write an
-  // anonymous callback function
-  socket.on('mouse',
-    // When we receive data
-    function (data) {
-      // console.log("Got: " + data.x + " " + data.y);
-      // Draw a blue circle
-      fill(data.col);
-      noStroke();
-      ellipse(data.x, data.y, 20, 20);
-    }
-  );
-  socket.on("chat", (data) => {
-    push_chat(data)
-  })
 
   var elem = $('.color-input')[0];
   var hueb = new Huebee(elem, {
@@ -66,6 +52,8 @@ function setup() {
     // console.log(color)
     mycol = color
     me.col = mycol
+    update_brush_col()
+
     // console.table(me)
     socket.emit('color_change', me);
 
@@ -75,27 +63,50 @@ function setup() {
 
 }
 
-function draw() {
-  // background(bg);
-  // Nothing
+function save_can(){
+  saveCanvas(canvas, 'masterpiece', 'jpg');
 }
+// We make a named event called 'mouse' and write an
+// anonymous callback function
+socket.on('mouse',
+  // When we receive data
+  function (data) {
+    // console.log("recived")
+    fill(data.col);
+    noStroke();
+    ellipse(data.x, data.y, data.size * 2, data.size * 2);
+  }
+);
+socket.on("chat", (data) => {
+  push_chat(data)
+})
+
 
 function mouseDragged() {
   // Draw some white circles
   fill(mycol);
   noStroke();
-  ellipse(mouseX, mouseY, 20, 20);
+  ellipse(mouseX, mouseY, size * 2, size * 2);
   // Send the mouse coordinates
   var data = {
     x: mouseX,
     y: mouseY,
-    col: mycol
+    col: mycol,
+    size: size,
   };
 
   // Send that object to the socket
-  if (data.x >= 0 && data.x <= width && data.y >= 0 && data.y <= height)
+  if (data.x >= 0 && data.x <= width && data.y >= 0 && data.y <= height){
     socket.emit('mouse', data);
+    // console.log(data)
+  }
 }
+
+function draw() {
+  // background(bg);
+  // Nothing
+}
+
 
 
 
@@ -125,6 +136,7 @@ function submit() {
     col: mycol,
     emoji: e,
   }
+  update_brush_col()
 
   // console.log(mycol);
   if ($(`#name`).val() != '') {
@@ -250,6 +262,7 @@ function update_online_users() {
   for (e of online_users_list) {
     id = '#' + e.name
     $(id).css('color', e.col)
+    
   }
 }
 
@@ -316,3 +329,22 @@ socket.on('someone_disconnected', (d_user) => {
   notification(d_user.name + ' Disconnected')
   remove_online(d_user)
 })
+
+
+$('.size-picker i').click(function () {
+  var id = $(this).attr('id');
+  $('.size-picker i').removeClass("zoom")
+  $("#"+id).addClass('zoom')
+  $("#"+id).addClass('bg-sel')
+  var s=int(id.slice(1,id.length))
+  size=s/2
+  update_brush_col()
+  console.log(id,s)
+});
+
+function update_brush_col() {
+  id="#s"+size*2
+  $('.size-picker i').css('color', mycol + '80')
+  $('.size-picker i' + id).css('color', mycol)
+
+}

@@ -4,7 +4,8 @@
 <head>
   <script src="./js/socket.io-1.4.5.js"></script>
   <link rel="stylesheet" type="text/css" href="./css/style.css">
-<link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+
   <link rel="stylesheet" href="https://unpkg.com/huebee@1/dist/huebee.min.css">
 </head>
 
@@ -87,17 +88,31 @@
       </div>
     </div>
 
-    <div class="row" style='margin-top:10px'>
-      <div class="col-sm-6">
+    <div class="row" style='margin-top:5px'>
+      <div class="row" style=''>
+
         <div id="color-picker">
           <input id="color-input" class="color-input dark-picker hidden" value="#F80" />
+          <div class='size_n_btn'>
+            <span class=" size-picker" style="color: white">
+              Size:
+              <i class="glyphicon glyphicon-pencil" id='s5' style="color: azure; font-size: 5px"></i>
+              <i class="glyphicon glyphicon-pencil" id='s10' style="color: azure; font-size: 10px"></i>
+              <i class="glyphicon glyphicon-pencil" id='s15' style="color: azure; font-size: 15px"></i>
+              <i class="glyphicon glyphicon-pencil" id='s20' style="color: azure; font-size: 20px"></i>
+              <i class="glyphicon glyphicon-pencil" id='s25' style="color: azure; font-size: 25px"></i>
+            </span>
+            <div>
+              <button id="clear-btn" onclick="clearCanvas()" class="btn btn-danger" style="display: table; margin-bottom: 5px ">Clear canvas</button>
+              <button id="save-btn" onclick="save_can()" class="btn btn-info" style="display: table; margin-bottom: 5px">Save canvas</button>
+            </div>
+          </div>
         </div>
+
       </div>
-      <div class="col-sm-6">
-        <div id="blackboard-buttons">
-          <button id="clear-btn" onclick="clearCanvas()" class="btn btn-danger">Clear canvas</button>
-        </div>
-      </div>
+
+      <!-- <div class="col-sm-6"> -->
+      <!-- </div> -->
     </div>
 
 
