@@ -15,8 +15,8 @@ var me={name:'alal',
 col:"#ee00ee"}
 var emojis = ['😈', '😌', '😜', '😀', '👻', '💀', '🐠', '😏', '🧛‍', '🦄', '🐼', '🐒', '🐢', '🐇', '🐟', '🐌', '🦇', '🐣', '🐶', '👽', '🤓', '🙊', '⚡', '🔥', '👱‍', '🤷', '🎃', '🤴', '🎅', ]
 var illegal_chars = ['\\', '"', "'", '`', ';', ]
-// socket = io.connect('https://col-draw.herokuapp.com/');
-socket = io.connect('http://localhost:3000');
+socket = io.connect('https://col-draw.herokuapp.com/');
+// socket = io.connect('http://localhost:3000');
 // socket = io.connect('http://192.168.0.14:3000');
 
 
