@@ -64,7 +64,7 @@ function setup() {
 }
 
 function save_can(){
-  saveCanvas(canvas, 'masterpiece', 'jpg');
+  saveCanvas(canvas, 'masterpiece', 'png');
 }
 // We make a named event called 'mouse' and write an
 // anonymous callback function
