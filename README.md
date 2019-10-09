@@ -1,5 +1,5 @@
 #  Colaborative Drawing 
-### A colaborative drawing platform using Node js
+ A colaborative drawing platform using Node js
 
 ---
 
@@ -9,11 +9,11 @@
 
 ## App Info
 
-### This project was initially aimed to make a game similar to agar.io but it ended up being a colaborative drawing application when multiple users can come together and draw something on a shared canvas. You can use it to play tic-tac-toe or drawing guessing games with friends but the possibilities are endless.
+ This project was initially aimed to make a game similar to agar.io but it ended up being a colaborative drawing application when multiple users can come together and draw something on a shared canvas. You can use it to play tic-tac-toe or drawing guessing games with friends but the possibilities are endless.
 
-### The app is deployed [here](https://col-draw.herokuapp.com/)
+ The app is deployed [here](https://col-draw.herokuapp.com/)
 
-### Feel free to copy the code, modify it and add more cool features to it. If you'll give me proper credit that would make me very happy :')
+ Feel free to copy the code, modify it and add more cool features to it. If you'll give me proper credit that would make me very happy :')
 
 ## Author
 
