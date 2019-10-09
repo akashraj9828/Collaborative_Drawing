@@ -235,6 +235,7 @@ function clearCanvas() {
 
 socket.on('clearCanvas', (data) => {
   canvas.clear();
+  canvas.background(bg)
   // showalert("Board cleared by "+ data.name,"danger")
   notification("Board cleared by " + data.name)
 })
