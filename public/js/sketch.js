@@ -10,9 +10,17 @@ var debug = false
 var online_users_list = []
 // console.log(mycol);
 
+var x = 0
+var y = 0
+var px = 0
+var py = 0
+var easing = 0.2
+
 var size
-var me={name:'alal',
-col:"#ee00ee"}
+var me = {
+  name: 'unauthorized',
+  col: "#ee00ee"
+}
 var emojis = ['😈', '😌', '😜', '😀', '👻', '💀', '🐠', '😏', '🧛‍', '🦄', '🐼', '🐒', '🐢', '🐇', '🐟', '🐌', '🦇', '🐣', '🐶', '👽', '🤓', '🙊', '⚡', '🔥', '👱‍', '🤷', '🎃', '🤴', '🎅', ]
 var illegal_chars = ['\\', '"', "'", '`', ';', ]
 socket = io.connect('https://col-draw.herokuapp.com/');
@@ -25,8 +33,9 @@ function preload() {
 }
 
 function setup() {
+  smooth()
   par = $('#canvas-container')
-  size=5
+  size = 5
   width = par.width()
   height = 400
   canvas = createCanvas(width, height);
@@ -60,10 +69,53 @@ function setup() {
     // circle.style.fill = color;
   });
 
-
 }
 
-function save_can(){
+function draw() {
+  strokeJoin(ROUND);
+
+  
+}
+
+function mousePressed() {
+  // Assign current mouse position to variables.
+  x = mouseX;
+  y = mouseY;
+  px = mouseX;
+  py = mouseY;
+  // Prevent default functionality.
+  return false;
+}
+
+// Run when the mouse/touch is dragging.
+function mouseDragged() {
+  var targetX = mouseX,
+    targetY = mouseY;
+  x += (targetX - x) * easing;
+  y += (targetY - y) * easing;
+  var data = {
+    x: x,
+    y: y,
+    px: px,
+    py: py,
+    col: mycol,
+    size: size,
+  };
+  stroke(mycol);
+  strokeWeight(size)
+  line(x, y, px, py);
+  if (data.x >= 0 && data.x <= width && data.y >= 0 && data.y <= height) {
+    socket.emit('mouse', data);
+    // console.log(data)
+  }
+  px = x;
+  py = y;
+
+  // Prevent default functionality.
+  return false;
+}
+
+function save_can() {
   saveCanvas(canvas, 'masterpiece', 'png');
 }
 // We make a named event called 'mouse' and write an
@@ -72,9 +124,12 @@ socket.on('mouse',
   // When we receive data
   function (data) {
     // console.log("recived")
-    fill(data.col);
-    noStroke();
-    ellipse(data.x, data.y, data.size * 2, data.size * 2);
+    // fill(data.col);
+    stroke(data.col);
+    strokeWeight(data.size)
+    line(data.x, data.y, data.px, data.py);
+
+    // ellipse(data.x, data.y, data.size * 2, data.size * 2);
   }
 );
 socket.on("chat", (data) => {
@@ -82,30 +137,28 @@ socket.on("chat", (data) => {
 })
 
 
-function mouseDragged() {
-  // Draw some white circles
-  fill(mycol);
-  noStroke();
-  ellipse(mouseX, mouseY, size * 2, size * 2);
-  // Send the mouse coordinates
-  var data = {
-    x: mouseX,
-    y: mouseY,
-    col: mycol,
-    size: size,
-  };
+// function mouseDragged() {
+// function touchMoved() {
+//   // Draw some white circles
+//   fill(mycol);
+//   noStroke();
+//   ellipse(mouseX, mouseY, size * 2, size * 2);
+//   // Send the mouse coordinates
+//   var data = {
+//     x: mouseX,
+//     y: mouseY,
+//     col: mycol,
+//     size: size,
+//   };
 
-  // Send that object to the socket
-  if (data.x >= 0 && data.x <= width && data.y >= 0 && data.y <= height){
-    socket.emit('mouse', data);
-    // console.log(data)
-  }
-}
+//   // Send that object to the socket
+//   if (data.x >= 0 && data.x <= width && data.y >= 0 && data.y <= height) {
+//     socket.emit('mouse', data);
+//     // console.log(data)
+//   }
+// }
 
-function draw() {
-  // background(bg);
-  // Nothing
-}
+
 
 
 
@@ -263,7 +316,7 @@ function update_online_users() {
   for (e of online_users_list) {
     id = '#' + e.name
     $(id).css('color', e.col)
-    
+
   }
 }
 
@@ -335,17 +388,24 @@ socket.on('someone_disconnected', (d_user) => {
 $('.size-picker i').click(function () {
   var id = $(this).attr('id');
   $('.size-picker i').removeClass("zoom")
-  $("#"+id).addClass('zoom')
-  $("#"+id).addClass('bg-sel')
-  var s=int(id.slice(1,id.length))
-  size=s/2
+  $("#" + id).addClass('zoom')
+  $("#" + id).addClass('bg-sel')
+  var s = int(id.slice(1, id.length))
+  size = s
   update_brush_col()
-  console.log(id,s)
+  console.log(id, s)
 });
 
 function update_brush_col() {
-  id="#s"+size*2
+  id = "#s" + size
   $('.size-picker i').css('color', mycol + '80')
   $('.size-picker i' + id).css('color', mycol)
 
 }
+
+// function eraser(){
+//   // mycol = "#FFFFFF"
+//   // me.col = mycol
+//   // update_brush_col()
+//   erase()
+// }
