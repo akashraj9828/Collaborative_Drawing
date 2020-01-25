@@ -302,7 +302,7 @@ socket.on('user', (data) => {
 })
 
 socket.on('color_change', (data) => {
-  notification(data.name + "  Changed color")
+  notification(data.name + "  Changed color",data.col)
   for (i = 0; i < online_users_list.length; i++) {
     if (data.socket_id == online_users_list[i].socket_id) {
       online_users_list[i].col = data.col
@@ -336,12 +336,13 @@ function showalert(message, alerttype) {
 }
 
 
-function notification(message) {
+function notification(message,col="#ffffffa1") {
   // Get the snackbar DIV
   let x = document.getElementById("snackbar");
   x.innerHTML = message
   // Add the "show" class to DIV
   x.className = "show";
+  x.style.backgroundColor =col+"bd"
 
   // After 3 seconds, remove the show class from DIV
   setTimeout(function () {
