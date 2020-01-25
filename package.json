@@ -13,11 +13,7 @@
     "express": "^4.13.4",
     "express-ip": "^1.0.3",
     "gists": "^2.0.0",
-<<<<<<< HEAD
     "npm": "^6.4.0",
-=======
-    "npm": "^6.13.4",
->>>>>>> 13f4f870d6012f98f774a7b1b3285320321d9cad
     "socket.io": "^1.4.5"
   },
   "devDependencies": {

@@ -58,3 +58,6 @@ typings/
 .env
 
 .vs*
+
+*lock.json
+# node_modules*
