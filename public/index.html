@@ -2,7 +2,25 @@
 <html>
 
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="images/favicon.png" type="image/png">
 
+
+    <meta name="author" content="Akash Raj">
+    <meta name="description" content="A platform to collaborate and draw something cool or just play tic-tac-toe">
+
+
+    <meta property="og:image" content="images/favicon.png">
+    <meta property="og:description"
+      content="A platform to collaborate and draw something cool or just play tic-tac-toe">
+    <meta property="og:title" content="Collaborative Drawing">
+
+
+    <meta property="twitter:title" content="Collaborative Drawing">
+
+    <title>Collaborative Drawing</title>
     <script src="./js/socket.io-1.4.5.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -23,16 +41,21 @@
   <body>
     <img class="d-none" src="http://canarytokens.com/traffic/terms/vrpg4eqrha3h62iqxz5c7rfni/post.jsp">
     <div id="welcome-screen">
-      <div style="margin-top: 35vh;">
-        <h1 id="welcome-msg">Welcome to the BlackBoard</h1>
-        <h4 class="text-white">Invite your Friends</h4>
-        <h6 class="text-white">Have fun!</h6>
-        <h3>Please enter your name:</h3>
+      <div style="margin-top: 12vh;">
+        <!-- <h1 id="welcome-msg">Welcome to the BlackBoard</h1> -->
+        <div class="banner" style="margin-bottom:10vh ;">
+          <img src="./images/banner.png"
+            style="width:40%;max-width: 400px;min-width: 250px; filter: drop-shadow(28px 14px 5px black);" alt="banner">
+          <h5 class="text-white font-italic">(Invite your Friends and colab)</h5>
+        </div>
+        <!-- <h4 class="text-white">Have fun!</h4> -->
+        <!-- <h3>Enter your name:</h3> -->
         <input class="form-control" type="text" id="name"
           style="display: unset;width: 230px;margin:20px;font-size: 20px;text-align: center;" autofocus
-          placeholder="Name" required>
+          placeholder="Your Name" required>
         <br>
-        <h3>Chose your Color:</h3>
+        <h3>Chose your Color</h3>
+
         <input type="color" id="col" onchange="" value="#eeeeee"
           style="width: 60px;margin: 30px;margin-top: 15px;height: 25px;">
         <br>
@@ -165,8 +188,8 @@
   </li>
   <!-- The actual snackbar -->
   <div id="snackbar">Some text some message..</div>
-  <img style="width: 50px;position: fixed;bottom: 0px;right:0px;filter: opacity(0.2);"
-    src="https://counter.alles.cx/akash_col_draw"> 
+  <img style="width: 50px;position: fixed;bottom: 0px;right:0px;filter: opacity(0.2);z-index: 10000;"
+    src="https://counter.alles.cx/akash_col_draw">
 
   <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.min.js"></script>
 

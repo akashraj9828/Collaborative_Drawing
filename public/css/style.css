@@ -483,3 +483,7 @@ ul#online_users li {
 hr {
   margin-bottom: 42px;
 }
+
+.font-italic{
+  font-style: italic;
+}
