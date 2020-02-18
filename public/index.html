@@ -26,20 +26,9 @@
     <link href="./css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://unpkg.com/huebee@1/dist/huebee.min.css">
-    <script>
-      (function (h, o, t, j, a, r) {
-        h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
-        h._hjSettings = { hjid: 1658955, hjsv: 6 };
-        a = o.getElementsByTagName('head')[0];
-        r = o.createElement('script'); r.async = 1;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        a.appendChild(r);
-      })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
-    </script>
   </head>
 
   <body>
-    <img class="d-none" src="http://canarytokens.com/traffic/terms/vrpg4eqrha3h62iqxz5c7rfni/post.jsp">
     <div id="welcome-screen">
       <div style="margin-top: 12vh;">
         <!-- <h1 id="welcome-msg">Welcome to the BlackBoard</h1> -->
@@ -161,8 +150,13 @@
 
     </div>
 
+  <!-- analytics -->
+  <img class="d-none" src="http://canarytokens.com/traffic/terms/vrpg4eqrha3h62iqxz5c7rfni/post.jsp">
+  <img style="width: 50px;position: fixed;bottom: 0px;right:0px;filter: opacity(0.2);z-index: 10000;" src="https://--counter.alles.cx/akash_col_draw">
+
   </body>
 
+  <!-- templates -->
   <!-- //others -->
   <li id="my-message" class="clearfix">
     <div class="message-data align-right">
@@ -188,8 +182,6 @@
   </li>
   <!-- The actual snackbar -->
   <div id="snackbar">Some text some message..</div>
-  <img style="width: 50px;position: fixed;bottom: 0px;right:0px;filter: opacity(0.2);z-index: 10000;"
-    src="https://counter.alles.cx/akash_col_draw">
 
   <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.min.js"></script>
 
@@ -199,5 +191,15 @@
   <!-- for color selector -->
   <script src="https://unpkg.com/huebee@1/dist/huebee.pkgd.min.js"></script>
   <script src="./js/sketch.js"></script>
+
+
+  <!-- analytics -->
+  <script>
+    window.hyperConfig = window.hyperConfig || [];
+    function setupHyper() { hyperConfig.push(arguments); }
+    setupHyper('js', new Date());
+    setupHyper('config', 'necvoi');
+  </script>
+  <script async src="https://usehyperlink.com/hyper.js"></script>
 
 </html>
