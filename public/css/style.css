@@ -2,7 +2,7 @@ body {
   margin: 0;
   /* padding-top: 15px; */
   text-align: center;
-  background: url(../tex.jpg) !important;
+  background: url(../images/tex.jpg) !important;
 }
 
 div#welcome-screen {
@@ -11,7 +11,7 @@ div#welcome-screen {
   z-index: 100;
   position: fixed;
   top: 0;
-  background: url(../tex.jpg) !important;
+  background: url(../images/tex.jpg) !important;
 }
 
 #welcome-msg {
@@ -42,13 +42,13 @@ div#canvas-container {
   margin-left: 25px;
   width: 700px;
   /* background-size: auto; */
-  background: url(../bbtex.jpg) no-repeat;
+  background: url(../images/bbtex.jpg) no-repeat;
   /* height:  fit-content; */
   /* background-size: cover; */
   /* padding-right: 60px; */
   background-repeat: repeat;
   border: 15px solid transparent;
-  border-image: url(../wood.jpg) 10 stretch;
+  border-image: url(../images/wood.jpg) 10 stretch;
   display: inline-block;
   float: left;
   padding: unset !important;

@@ -29,7 +29,7 @@ socket = io.connect('https://col-draw.herokuapp.com/');
 
 
 function preload() {
-  bg = loadImage("./../bbtex.jpg")
+  bg = loadImage("./images/bbtex.jpg")
 }
 
 function setup() {
