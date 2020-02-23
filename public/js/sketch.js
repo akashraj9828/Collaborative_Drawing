@@ -21,6 +21,7 @@ var me = {
   name: 'unauthorized',
   col: "#ee00ee"
 }
+
 var emojis = ['😈', '😌', '😜', '😀', '👻', '💀', '🐠', '😏', '🧛‍', '🦄', '🐼', '🐒', '🐢', '🐇', '🐟', '🐌', '🦇', '🐣', '🐶', '👽', '🤓', '🙊', '⚡', '🔥', '👱‍', '🤷', '🎃', '🤴', '🎅', ]
 var illegal_chars = ['\\', '"', "'", '`', ';', ]
 socket = io.connect('https://col-draw.herokuapp.com/');
@@ -74,7 +75,7 @@ function setup() {
 function draw() {
   strokeJoin(ROUND);
 
-  
+
 }
 
 function mousePressed() {
@@ -196,6 +197,12 @@ function submit() {
     socket.emit('user', user)
     $(`#welcome-screen`).slideUp();
     $('#blackboard-chat-container').show()
+    // var el = document.getElementById('message-to-send'),
+    //   elClone = el.cloneNode(true);
+
+    // el.parentNode.replaceChild(elClone, el);
+    $("#message-to-send").focus()
+
 
   } else {
     alert(`Name is required`)
@@ -302,7 +309,7 @@ socket.on('user', (data) => {
 })
 
 socket.on('color_change', (data) => {
-  notification(data.name + "  Changed color",data.col)
+  notification(data.name + "  Changed color", data.col)
   for (i = 0; i < online_users_list.length; i++) {
     if (data.socket_id == online_users_list[i].socket_id) {
       online_users_list[i].col = data.col
@@ -336,13 +343,13 @@ function showalert(message, alerttype) {
 }
 
 
-function notification(message,col="#ffffffa1") {
+function notification(message, col = "#ffffffa1") {
   // Get the snackbar DIV
   let x = document.getElementById("snackbar");
   x.innerHTML = message
   // Add the "show" class to DIV
   x.className = "show";
-  x.style.backgroundColor =col+"bd"
+  x.style.backgroundColor = col + "bd"
 
   // After 3 seconds, remove the show class from DIV
   setTimeout(function () {

@@ -26,6 +26,17 @@
     <link href="./css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://unpkg.com/huebee@1/dist/huebee.min.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-104119918-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-104119918-2');
+    </script>
+
   </head>
 
   <body>
@@ -185,9 +196,12 @@
   <div id="snackbar">Some text some message..</div>
 
   <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/p5@0.9.0/lib/p5.min.js"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/p5@0.5.6/lib/p5.min.js"></script> -->
 
   <!-- <script src="./js/p5.min.js"></script> -->
-  <script src="./js/jquery.js"></script>
+  <!-- <script src="./js/jquery.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 
   <!-- for color selector -->
   <script src="https://unpkg.com/huebee@1/dist/huebee.pkgd.min.js"></script>
@@ -234,6 +248,8 @@
   </script>
   <script async src="https://usehyperlink.com/hyper.js"></script>
 
-
+  <script>
+    $("#name").off()
+  </script>
 
 </html>
