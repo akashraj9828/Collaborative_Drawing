@@ -5,7 +5,7 @@
 
 [![PR](https://img.shields.io/badge/PR-Welcome-blue.svg)](https://github.com/akashraj9828/Collaborative_Drawing)
 [![PR](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/akashraj9828/Collaborative_Drawing)
-[![GitLicense](https://gitlicense.com/badge/hereisnaman/gitfame)](https://github.com/akashraj9828/Collaborative_Drawing)
+[![GitLicense](https://gitlicense.com/badge/akashraj9828/Collaborative_Drawing)](https://github.com/akashraj9828/Collaborative_Drawing)
 
 ## App Info
 
